@@ -5,6 +5,7 @@ import axios from "axios";
 import HeadingButtonGroup from "./HeadingButtonGroup";
 import FetchData from "./FetchData";
 import Footer from "./Footer";
+import SearchBar from "./SearchBar";
 
 const ModalB = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -12,9 +13,27 @@ const ModalB = () => {
   const [loading, setLoading] = useState(false);
   const [contactData, setContactData] = useState();
   const [singleData, setSingleData] = useState();
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+  };
+
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const searchFilteredData = filteredData.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(searchFilteredData);
+    } else {
+      setFilteredResults(filteredData);
+    }
+    // console.log(filteredResults);
   };
 
   const filteredData = isChecked
@@ -48,15 +67,27 @@ const ModalB = () => {
       <div className="w-full h-screen justify-center items-center">
         <Container>
           <h1 className="text-center mb-6 text-emerald-400">Modal B</h1>
+
           <HeadingButtonGroup />
 
+          <SearchBar searchItems={searchItems} />
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-y-5">
-            <FetchData
-              loading={loading}
-              filteredData={filteredData}
-              onsetModalCOpen={setModalCOpen}
-              onsetSingleData={setSingleData}
-            />
+            {filteredResults == "" ? (
+              <FetchData
+                loading={loading}
+                filteredData={filteredData}
+                onsetModalCOpen={setModalCOpen}
+                onsetSingleData={setSingleData}
+              />
+            ) : (
+              <FetchData
+                loading={loading}
+                filteredData={filteredResults}
+                onsetModalCOpen={setModalCOpen}
+                onsetSingleData={setSingleData}
+              />
+            )}
           </div>
 
           <ModalC

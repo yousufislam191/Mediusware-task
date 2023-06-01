@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const HeadingButtonGroup = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-row justify-between items-center mb-16">
+    <div className="flex flex-row justify-between items-center mb-4">
       <button
         onClick={() => navigate("/modalA")}
         className="text-[#46139f] border-[#46139f] border-2  font-bold py-2 px-4 rounded"

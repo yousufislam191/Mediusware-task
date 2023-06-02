@@ -8,7 +8,7 @@ const ModalC = ({ modalCOpen, onSetModalCOpen, singleData }) => {
       <Modal isOpen={modalCOpen} onRequestClose={() => setModalCOpen(false)}>
         <Container>
           <div className="flex flex-row justify-between items-center">
-            <h1 className="text-center mb-6 text-emerald-400">Modal C</h1>
+            <h1 className="text-center text-emerald-400">Modal C</h1>
             <div className="my-4"></div>
             <button
               onClick={() => onSetModalCOpen(false)}

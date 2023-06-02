@@ -64,43 +64,48 @@ const ModalB = () => {
 
   return (
     <>
-      <div className="w-full h-screen justify-center items-center">
-        <Container>
-          <h1 className="text-center mb-6 text-emerald-400">Modal B</h1>
+      <div className="h-screen flex flex-col">
+        <div className="h-ninty-parcent overflow-y-scroll">
+          <Container>
+            <h1 className="text-center mb-6 text-emerald-400">Modal B</h1>
 
-          <HeadingButtonGroup />
+            <HeadingButtonGroup />
+            <SearchBar searchItems={searchItems} />
 
-          <SearchBar searchItems={searchItems} />
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-5">
+              {filteredResults == "" ? (
+                <FetchData
+                  loading={loading}
+                  filteredData={filteredData}
+                  onsetModalCOpen={setModalCOpen}
+                  onsetSingleData={setSingleData}
+                />
+              ) : (
+                <FetchData
+                  loading={loading}
+                  filteredData={filteredResults}
+                  onsetModalCOpen={setModalCOpen}
+                  onsetSingleData={setSingleData}
+                />
+              )}
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-y-5">
-            {filteredResults == "" ? (
-              <FetchData
-                loading={loading}
-                filteredData={filteredData}
-                onsetModalCOpen={setModalCOpen}
-                onsetSingleData={setSingleData}
+              <ModalC
+                modalCOpen={modalCOpen}
+                onSetModalCOpen={setModalCOpen}
+                singleData={singleData}
               />
-            ) : (
-              <FetchData
-                loading={loading}
-                filteredData={filteredResults}
-                onsetModalCOpen={setModalCOpen}
-                onsetSingleData={setSingleData}
-              />
-            )}
-          </div>
+            </div>
+          </Container>
+        </div>
 
-          <ModalC
-            modalCOpen={modalCOpen}
-            onSetModalCOpen={setModalCOpen}
-            singleData={singleData}
-          />
-
-          <Footer
-            isChecked={isChecked}
-            handleCheckboxChange={handleCheckboxChange}
-          />
-        </Container>
+        <div className="flex-grow">
+          <Container>
+            <Footer
+              isChecked={isChecked}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          </Container>
+        </div>
       </div>
     </>
   );
